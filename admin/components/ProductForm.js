@@ -1,8 +1,8 @@
-import Layout from "@/components/Layout";
 import { useEffect, useState } from "react";
 import axios from 'axios'
 import { useRouter } from "next/router";
-import { Image } from 'next/image'
+
+
 export default function ProductForm ({
   _id,
   name: existingName,
@@ -10,6 +10,7 @@ export default function ProductForm ({
   description: existingDescription,
   price: existingPrice,
   category: assignedCategory,
+  properties: assignedProperties,
 }) {
   const router = useRouter()
   const [name, setName] = useState(existingName || '');
@@ -20,7 +21,7 @@ export default function ProductForm ({
   const [goToProducts, setGoToProducts] = useState(false);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState(assignedCategory || '');
-  const [productProperties, setProductProperties] = useState('');
+  const [productProperties, setProductProperties] = useState(assignedProperties || {});
 
   useEffect(() => {
     axios.get('/api/categories').then(res => setCategories(res.data))
