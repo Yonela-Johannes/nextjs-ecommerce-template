@@ -1,13 +1,11 @@
 import Layout from "@/components/Layout"
 import { useSession } from "next-auth/react"
-import Image from "next/image"
-export default function Home(){
 
+export default function Home(){
   const {data: session} = useSession();
-  // if(!session) return;
   return(
     <Layout>
-    <div className="text-blue-900 flex justify-between">
+    <div className="flex justify-between">
     <h2>
       Hello, {session?.user?.name}
     </h2>
