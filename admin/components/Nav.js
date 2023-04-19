@@ -1,11 +1,11 @@
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signOut } from "next-auth/react"
 import Link from 'next/link'
 import { useRouter } from "next/router";
 
 export default function Nav ({show}) {
   const { data: session } = useSession()
-  const inactiveLink = 'flex gap-1 p-1 pr-2';
-  const activeLink = inactiveLink+' bg-white text-primary rounded-l-lg'
+  const inactiveLink = 'flex gap-1 p-1 pr-2 w-full md:p-2 border border-gray-400';
+  const activeLink = inactiveLink+' bg-white text-primary border-white'
   const router = useRouter()
   const { pathname } = router;
 
@@ -18,7 +18,7 @@ export default function Nav ({show}) {
     <aside className={(show ? "left-0" : "-left-full") + " top-0 text-text_primary p-4 pr-0 fixed w-full bg-primary h-full md:static md:w-auto transition-all"}>
       <div>
         <br />
-        <button onClick={logout} className="flex items-center btn-primary p-2 rounded-md mb-10">Sign out</button>
+        <button onClick={logout} className="flex items-center btn-primary p-2 w-full mb-10">Sign out</button>
       </div>
       <nav className="flex flex-col gap-2">
       <div className="">

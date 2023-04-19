@@ -12,8 +12,8 @@ h2{
   @apply text-[25px] mb-4
 }
 input, textarea, select{
-  @apply border-2 p-2 rounded-lg w-full;
-  @apply mb-2
+  @apply border-2 p-2  w-full;
+  @apply mb-2 bg-bg
 }
 
 input:focus, textarea:focus, select:focus{
@@ -26,7 +26,7 @@ label {
 }
 
 button, .btn-primary{
-  @apply bg-secondary p-6 py-2 text-text_primary rounded-lg
+  @apply bg-secondary p-6 py-2 text-text_primary
 }
 
 table.basic{
@@ -45,7 +45,7 @@ table.basic a {
 }
 
 .btn-default, .btn-red {
-  @apply px-4 py-1 rounded-md text-text_primary
+  @apply px-4 py-1 text-text_primary
 }
 
 .btn-red {
