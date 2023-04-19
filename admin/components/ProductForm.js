@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios'
 import { useRouter } from "next/router";
 import { Image } from 'next/image'
@@ -9,6 +9,7 @@ export default function ProductForm ({
   imageUrl: existingImageUrl,
   description: existingDescription,
   price: existingPrice,
+  category: assignedCategory,
 }) {
   const router = useRouter()
   const [name, setName] = useState(existingName || '');
@@ -16,10 +17,15 @@ export default function ProductForm ({
   const [imageUrl, setImageUrl] = useState(existingImageUrl || '')
   const [description, setDescription] = useState(existingDescription || '');
   const [price, setPrice] = useState(existingPrice || '');
-  const [goToProducts, setGoToProducts] = useState(false)
+  const [goToProducts, setGoToProducts] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState(assignedCategory || '');
 
+  useEffect(() => {
+    axios.get('/api/categories').then(res => setCategories(res.data))
+  }, [])
   async function saveProduct(e) {
-    const data = { name, description, price};
+    const data = { name, description, price, category};
     e.preventDefault()
     if(_id){
       // update product
@@ -40,11 +46,17 @@ export default function ProductForm ({
     router.push('/products');
   }
 
-  console.log("This is the image bro",)
   return (
       <form onSubmit={saveProduct}>
         <label>Product name</label>
         <input value={name} type="text" placeholder="enter name" onChange={e => setName(e.target.value)} />
+        <label>Category</label>
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+          <option value={''}>Uncategorized</option>
+          {categories.length > 0 && categories.map((c) => (
+            <option key={c._id} value={c._id}>{c.name}</option>
+          ))}
+        </select>
         <label>Product photo</label>
         <div className="mb-2 flex">
             <label className="w-24 h-24 border cursor-pointer rounded-none p-0 bg-white text-gray-500 text-sm flex text-center items-center justify-center">
