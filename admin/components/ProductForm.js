@@ -20,12 +20,14 @@ export default function ProductForm ({
   const [goToProducts, setGoToProducts] = useState(false);
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState(assignedCategory || '');
+  const [productProperties, setProductProperties] = useState('');
 
   useEffect(() => {
     axios.get('/api/categories').then(res => setCategories(res.data))
   }, [])
   async function saveProduct(e) {
-    const data = { name, description, price, category};
+    const data = { name, description, price, category,
+      properties: productProperties};
     e.preventDefault()
     if(_id){
       // update product
@@ -46,6 +48,25 @@ export default function ProductForm ({
     router.push('/products');
   }
 
+  const propertiesToFill = []
+  if (categories.length > 0 && category) {
+    let catInfo = categories.find(({_id}) => _id === category);
+    propertiesToFill.push(...catInfo.properties);
+    while(catInfo?.parent?._id){
+      const parentCat = categories.find(({_id}) => _id === catInfo?.parent?._id)
+      propertiesToFill.push(...parentCat.properties);
+      catInfo = parentCat;
+    }
+  }
+
+  function setProductProp (propName, value) {
+    setProductProperties(prev => {
+      const newProductProps = {...prev};
+      newProductProps[propName] = value;
+      return newProductProps;
+    });
+  }
+
   return (
       <form onSubmit={saveProduct}>
         <label>Product name</label>
@@ -57,6 +78,20 @@ export default function ProductForm ({
             <option key={c._id} value={c._id}>{c.name}</option>
           ))}
         </select>
+        {propertiesToFill.length > 0 && propertiesToFill.map(p => (
+          <div key={p._id}
+            className="flex gap-1">
+              <div className="">{p.name}</div>
+              <select
+                value={productProperties[p.name]}
+                onChange={(e) => setProductProp(p.name, e.target.value)}
+              >
+                {p.values.map((v, i) => (
+                  <option key={i} value={v}>{v}</option>
+                ))}
+              </select>
+          </div>
+        ))}
         <label>Product photo</label>
         <div className="mb-2 flex">
             <label className="w-24 h-24 border cursor-pointer rounded-none p-0 bg-white text-gray-500 text-sm flex text-center items-center justify-center">
