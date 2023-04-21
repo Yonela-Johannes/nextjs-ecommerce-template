@@ -1,17 +1,11 @@
-import { createGlobalStyle } from "styled-components"
-
-const GlobalStyles = createGlobalStyle`
-  body{
-    padding: 0;
-    margin: 0;
-  }
-`
-
+import { CartContextProvider } from '@/components/cart/CartContext'
+import './_app.css'
 export default function App({ Component, pageProps }) {
-  return (
+  return(
     <>
-      <GlobalStyles />
-      <Component {...pageProps} />
+      <CartContextProvider>
+        <Component {...pageProps} />
+      </CartContextProvider>
     </>
   )
 }
