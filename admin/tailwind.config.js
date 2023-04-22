@@ -12,7 +12,7 @@ module.exports = {
         primary_alt: "#76949F",
         secondary: "#321325",
         tertiary: "#5E4352",
-        bg: "#fff",
+        bg: "#FFC9DB",
         text_primary: "#fff",
       }
     },

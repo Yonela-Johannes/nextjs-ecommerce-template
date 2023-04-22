@@ -14,7 +14,7 @@ export default function Products(){
   return (
     <Layout>
       <h1>Products</h1>
-      <Link href={'/products/new'} className="bg-[#254441] text-white p-2" >Add new product</Link>
+      <Link href={'/products/new'} className="bg-primary text-white p-2" >Add new product</Link>
       <table className="basic my-4">
         <thead>
           <tr>

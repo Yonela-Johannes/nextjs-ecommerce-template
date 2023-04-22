@@ -8,7 +8,7 @@ export default function Layout({children}){
   const [showNav, setShowNav] = useState(false)
   if(session) {
     return (
-      <div className="md:bg-[#254441] min-h-screen bg-tertiary">
+      <div className="md:bg-primary min-h-screen bg-tertiary">
         <Image className="object-contain hidden md:block mx-auto md:h-[40px] md:w-[40px] p-1 w-[28px] h-[28px]" src={logo} alt='logo' />
         <div className="block md:hidden mb-4 w-full items-center flex justify-between px-1 py-1">
           <div className="flex gap-8 items-center">
